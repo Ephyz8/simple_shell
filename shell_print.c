@@ -2,11 +2,17 @@
 
 /**
  * shell_print - prints to terminal
- * @input: string to be printed
- * Retun: void
+ * @st: string to be printed
+ * Return: string
  */
 
-void shell_print(const char *input)
+int shell_print(char *st)
 {
-	write(STDOUT_FILENO, input, strlen(input));
+	int i = 0, cnt = 0;
+
+	while (st[i])
+	{
+		cnt = cnt + _putchar(st[i++]);
+	}
+	return (cnt);
 }
