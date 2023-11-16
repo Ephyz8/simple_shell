@@ -30,7 +30,6 @@ int main(int ch, char **ev)
 
                 if (num == -1)
                 {
-                        /*shell_print("Shell is exiting...\n");*/
                         free(buf);
                         exit(0);
                 }
@@ -78,11 +77,10 @@ int main(int ch, char **ev)
 			exit(1);
 	
         	}
-        	else
+      	 	else
 			wait(&status);
-                /*shell_print(buf);*/
+       
         }
 	free(pth);
-        /*free(buf);*/
         return (0);
 }

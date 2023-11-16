@@ -1,11 +1,11 @@
 #include "shell.h"
 
 
-char* shell_getline(void)
+char *shell_getline(void)
 {
 	static char buf[BUFFER_SIZE];
 	static int ps = 0, nbytes = 0;
-	char* line = NULL, nline;
+	char *line = NULL, *nline;
 	int len = 0, i, rem;
 	int bufempty = 1;
 	char a;
@@ -16,7 +16,7 @@ char* shell_getline(void)
 		{
 			nbytes = read(STDIN_FILENO, buf, BUFFER_SIZE);
 			if (nbytes <= 0)
-			return NULL;
+			return (NULL);
 		}
 		bufempty = 0;
 		ps = 0;
@@ -46,8 +46,8 @@ char* shell_getline(void)
 		ps = 0;
 		nbytes = rem;
 		bufempty = 1;
-		return new_line;
-	}
+		return (nline);
+	
 		if (len % BUFFER_SIZE == 0)
 		{
 			nline = (char*)malloc(len + BUFFER_SIZE);
