@@ -15,6 +15,8 @@ int _btcmd(char **ar);
 int _putchar(char input);
 char* shell_getline(void);
 int shell_print(char *st);
+int _delimtr(char chr, char *delim);
+char **_strtok(char *stng, char *delim);
 char *path_loc(char *pth, char *ar);
 char *_get(char *ar);
 char *_strcat(char *dest, char *src);

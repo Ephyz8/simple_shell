@@ -10,8 +10,8 @@
 int main(int ch, char **ev)
 {
 	bool fppe = false;
-        char *pmt = "EphyNeo$ ";
-	char *ar[101], *delim = " \n";
+        char *pmt = "($) ";
+	char *ar[1001], *delim = " \n";
         char *buf = NULL, *pth;
         size_t bufsz = 0;
         ssize_t num;
