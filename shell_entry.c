@@ -25,61 +25,48 @@ int main(int ch, char **ev)
                 if (isatty(STDIN_FILENO) == 0)
 			fppe = true;
 		shell_print(pmt);
-
                 num = getline(&buf, &bufsz, stdin);
-
                 if (num == -1)
                 {
                         free(buf);
-                        exit(0);
+                        exit(EXIT_FAILURE);
                 }
-
 		while (buf[i])
         	{
                 	if (buf[i] == '\n')
                         	buf[i] = 0;
 			i++;
-        	}
-
-        	ar[y] = *_strtok(buf, delim);
+        	 }
+        	ar[y] = strtok(buf, delim);
         	while (ar[y])
         	{
-                	ar[++y] = *_strtok(NULL, delim);
+                	ar[++y] = strtok(NULL, delim);
         	}
 		ar[y] = NULL;
-
 		pth = _get(ar[0]);
-
-
 	       if (pth == NULL)
 	       {
 		       if (_btcmd(ar) != 0)
-		       {
 			       continue;
-		       }
 		       else
 			       shell_print("Command does not exist\n");
 		       continue;
 	       }     
-
         	chd_pid = fork();
-
         	if (chd_pid < 0)
         	{
                 	shell_print("Failed to fork");
                 	free(buf);
-                	exit(0);
+                	exit(EXIT_FAILURE);
         	}
         	else if (chd_pid == 0)
         	{
                 	if (execve(pth, ar, ev) == -1)
                         	shell_print("This command does not exists\n");
 			exit(1);
-	
         	}
       	 	else
-			wait(&status);
-       
+			wait(&status);       
         }
 	free(pth);
         return (0);

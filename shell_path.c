@@ -53,8 +53,8 @@ char *_get(char *ar)
 
 	pth = getenv("PATH");
 
-	/*if (access("PATH", X_OK) == 0)*/
-		/*pth = getenv("PATH");*/
+	if (access("PATH", X_OK) == 0)
+		pth = getenv("PATH");
 
 	if (pth)
 	{
