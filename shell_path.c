@@ -28,7 +28,7 @@ char *path_loc(char *pth, char *ar)
 
 		if (access(flePth, X_OK) == 0)
 		{
-			/*free(pth_cy);*/
+			free(pth_cy);
 			return (flePth);
 		}
 		pthTkn = strtok(NULL, delim);
@@ -51,10 +51,7 @@ char *_get(char *ar)
 {
 	char *pth, *fullPth;
 
-	pth = getenv("PATH");
-
-	if (access("PATH", X_OK) == 0)
-		pth = getenv("PATH");
+	pth = getenv("PATH"); 
 
 	if (pth)
 	{

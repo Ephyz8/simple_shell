@@ -13,11 +13,9 @@ int main(int ch, char **ev)
 	pid_t chd_pid;
 	ssize_t num;
 	size_t bufsz = 0;
-	/*bool fppe = false;*/
         char *pmt = "($) ";
-	char *ar[] = {NULL, NULL}, *delim = " \n";
+	char *ar[10001], *delim = " \n";
         char *buf = NULL, *pth;
-        /*y = 0;*/
 	(void)ch;
 
         while (1)
@@ -46,12 +44,14 @@ int main(int ch, char **ev)
 	       if (pth == NULL)
 	       {
 		       if (_btcmd(ar) != 0)
+		       {
+			       shell_print("cd");
 			       continue;
+		       }
 		       else
 			       shell_print("Command does not exist\n");
 		      continue;
 	       }
-		ar[0] = pth;
         	chd_pid = fork();
         	if (chd_pid < 0)
         	{
@@ -61,13 +61,13 @@ int main(int ch, char **ev)
         	}
         	else if (chd_pid == 0)
         	{
-                	if (execve(ar[0], ar, ev) == -1)
+                	if (execve(pth, ar, ev) == -1)
                         	shell_print("This command does not exists\n");
-			exit(1);
         	}
       	 	else
 			wait(&status);       
         }
 	free(pth);
+	free(buf);
         return (0);
 }
