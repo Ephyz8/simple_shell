@@ -9,21 +9,21 @@
 
 int main(int ch, char **ev)
 {
-	bool fppe = false;
+	/*bool fppe = false;*/
         char *pmt = "($) ";
 	char *ar[] = {NULL, NULL}; /*delim = " \n";*/
-        char *buf = NULL, *pth = NULL;
+        char *buf = NULL; /*pth = NULL;*/
         size_t bufsz = 0;
         ssize_t num;
 	pid_t chd_pid;
-        int i, status;
+        int i = 0, status;
         /*y = 0;*/
 	(void)ch;
 
-        while (1 && !fppe)
+        while (1)
         {
-                if (isatty(STDIN_FILENO) == 0)
-			fppe = true;
+                /*if (isatty(STDIN_FILENO) == 0)*/
+			/*fppe = true;*/
 		shell_print(pmt);
                 num = getline(&buf, &bufsz, stdin);
                 if (num == -1)
@@ -52,7 +52,7 @@ int main(int ch, char **ev)
 		*	       shell_print("Command does not exist\n");
 		*      continue;
 	       }*/
-		ar[0] = pth;
+		ar[0] = buf;
         	chd_pid = fork();
         	if (chd_pid < 0)
         	{
@@ -62,13 +62,13 @@ int main(int ch, char **ev)
         	}
         	else if (chd_pid == 0)
         	{
-                	if (execve(pth, ar, ev) == -1)
+                	if (execve(ar[0], ar, ev) == -1)
                         	shell_print("This command does not exists\n");
 			exit(1);
         	}
       	 	else
 			wait(&status);       
         }
-	free(pth);
+	/*free(pth);*/
         return (0);
 }
