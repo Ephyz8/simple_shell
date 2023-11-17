@@ -9,22 +9,21 @@
 
 int main(int ch, char **ev)
 {
+	int i = 0,y = 0, status;
+	pid_t chd_pid;
+	ssize_t num;
+	size_t bufsz = 0;
 	/*bool fppe = false;*/
         char *pmt = "($) ";
-	char *ar[] = {NULL, NULL}; /*delim = " \n";*/
-        char *buf = NULL; /*pth = NULL;*/
-        size_t bufsz = 0;
-        ssize_t num;
-	pid_t chd_pid;
-        int i = 0, status;
+	char *ar[] = {NULL, NULL}, *delim = " \n";
+        char *buf = NULL, *pth;
         /*y = 0;*/
 	(void)ch;
 
         while (1)
         {
-                /*if (isatty(STDIN_FILENO) == 0)*/
-			/*fppe = true;*/
-		shell_print(pmt);
+                if (isatty(0))
+			shell_print(pmt);
                 num = getline(&buf, &bufsz, stdin);
                 if (num == -1)
                 {
@@ -37,22 +36,22 @@ int main(int ch, char **ev)
                         	buf[i] = 0;
 			i++;
         	 }
-        	/**ar[y] = strtok(buf, delim);
-        	*while (ar[y])
-        	*{
-                *	ar[++y] = strtok(NULL, delim);
-        	*}
-		*ar[y] = NULL;
-		*pth = _get(ar[0]);
-	       *if (pth == NULL)
-	       *{
-		*       if (_btcmd(ar) != 0)
-		*	       continue;
-		*       else
-		*	       shell_print("Command does not exist\n");
-		*      continue;
-	       }*/
-		ar[0] = buf;
+        	ar[y] = strtok(buf, delim);
+        	while (ar[y])
+        	{
+                	ar[++y] = strtok(NULL, delim);
+        	}
+		ar[y] = NULL;
+		pth = _get(ar[0]);
+	       if (pth == NULL)
+	       {
+		       if (_btcmd(ar) != 0)
+			       continue;
+		       else
+			       shell_print("Command does not exist\n");
+		      continue;
+	       }
+		ar[0] = pth;
         	chd_pid = fork();
         	if (chd_pid < 0)
         	{
@@ -69,6 +68,6 @@ int main(int ch, char **ev)
       	 	else
 			wait(&status);       
         }
-	/*free(pth);*/
+	free(pth);
         return (0);
 }
