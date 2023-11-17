@@ -41,10 +41,10 @@ int main(int ch, char **ev)
 			i++;
         	}
 
-        	ar[y] = strtok(buf, delim);
+        	ar[y] = *_strtok(buf, delim);
         	while (ar[y])
         	{
-                	ar[++y] = strtok(NULL, delim);
+                	ar[++y] = *_strtok(NULL, delim);
         	}
 		ar[y] = NULL;
 

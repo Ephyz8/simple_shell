@@ -16,8 +16,8 @@ char **_strtok(char *stng, char *delim)
 		return (NULL);
 	if (!delim)
 		delim = " ";
-	for (a = 0; stng[a] != '\0'; i++)
-		if (!_delimtr(stng[i], delim) && (_delimtr(stng[a + 1], d) || !stng[a + 1]))
+	for (a = 0; stng[a] != '\0'; a++)
+		if (!_delimtr(stng[a], delim) && (_delimtr(stng[a + 1], delim) || !stng[a + 1]))
 			num++;
 
 	if (num == 0)
@@ -27,13 +27,13 @@ char **_strtok(char *stng, char *delim)
 		return (NULL);
 	for (a = 0, b = 0; b < num; b++)
 	{
-		while (_delimtr(str[a], delim))
+		while (_delimtr(stng[a], delim))
 			a++;
 		c = 0;
 		while (!_delimtr(stng[a + c], delim) && stng[a + c])
 			c++;
-		s[b] = malloc((c + 1) * sizeof(char));
-		if (tc[b])
+		tc[b] = malloc((c + 1) * sizeof(char));
+		if (!tc[b])
 		{
 			for (c = 0; c < b; c++)
 				free(tc[c]);
@@ -41,7 +41,7 @@ char **_strtok(char *stng, char *delim)
 			return (NULL);
 		}
 		for (d = 0; d < c; d++)
-			tc[d] = stng[a++];
+			tc[b][d] = stng[a++];
 		tc[b][d] = 0;
 	}
 	tc[b] = NULL;
