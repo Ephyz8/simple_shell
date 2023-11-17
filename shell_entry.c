@@ -11,13 +11,13 @@ int main(int ch, char **ev)
 {
 	bool fppe = false;
         char *pmt = "($) ";
-	char *ar[1001], *delim = " \n";
-        char *buf = NULL, *pth;
+	char *ar[] = {NULL, NULL}; /*delim = " \n";*/
+        char *buf = NULL, *pth = NULL;
         size_t bufsz = 0;
         ssize_t num;
 	pid_t chd_pid;
-        int i, y, status;
-        y = 0;
+        int i, status;
+        /*y = 0;*/
 	(void)ch;
 
         while (1 && !fppe)
@@ -37,21 +37,22 @@ int main(int ch, char **ev)
                         	buf[i] = 0;
 			i++;
         	 }
-        	ar[y] = strtok(buf, delim);
-        	while (ar[y])
-        	{
-                	ar[++y] = strtok(NULL, delim);
-        	}
-		ar[y] = NULL;
-		pth = _get(ar[0]);
-	       if (pth == NULL)
-	       {
-		       if (_btcmd(ar) != 0)
-			       continue;
-		       else
-			       shell_print("Command does not exist\n");
-		       continue;
-	       }     
+        	/**ar[y] = strtok(buf, delim);
+        	*while (ar[y])
+        	*{
+                *	ar[++y] = strtok(NULL, delim);
+        	*}
+		*ar[y] = NULL;
+		*pth = _get(ar[0]);
+	       *if (pth == NULL)
+	       *{
+		*       if (_btcmd(ar) != 0)
+		*	       continue;
+		*       else
+		*	       shell_print("Command does not exist\n");
+		*      continue;
+	       }*/
+		ar[0] = pth;
         	chd_pid = fork();
         	if (chd_pid < 0)
         	{
